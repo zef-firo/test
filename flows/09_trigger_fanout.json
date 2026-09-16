@@ -1,0 +1,100 @@
+{
+  "name": "09_trigger_fanout",
+  "user": "roberto",
+  "flowActive": "09_trigger_fanout",
+  "flows": [
+    {
+      "name": "09_trigger_fanout",
+      "label": "Un avvio che fa partire due nodi",
+      "flow": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Sorgente A",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "FANOUT: sorgente A"
+            },
+            "x": 450,
+            "y": 100
+          },
+          {
+            "id": "2",
+            "name": "Sorgente B",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "FANOUT: sorgente B"
+            },
+            "x": 450,
+            "y": 210
+          },
+          {
+            "id": "3",
+            "name": "Convergenza",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "FANOUT: arrivati entrambi"
+            },
+            "x": 710,
+            "y": 100
+          },
+          {
+            "id": "n1",
+            "name": "Log dopo convergenza",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "Convergenza completata"
+            },
+            "width": 150,
+            "height": 50,
+            "x": 940,
+            "y": 100
+          }
+        ],
+        "connections": [
+          {
+            "id": "c1",
+            "sourceNode": "1",
+            "destNode": "3",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c2",
+            "sourceNode": "2",
+            "destNode": "3",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c3",
+            "sourceNode": "3",
+            "destNode": "n1",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          }
+        ],
+        "triggers": [
+          {
+            "nodeId": "1",
+            "triggerType": "manual",
+            "name": "avvio"
+          },
+          {
+            "nodeId": "2",
+            "triggerType": "manual",
+            "name": "avvio"
+          }
+        ],
+        "outputs": {}
+      }
+    }
+  ]
+}

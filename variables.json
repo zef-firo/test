@@ -1,0 +1,21 @@
+{
+  "variables": [
+    {
+      "name": "test",
+      "type": "string",
+      "default": "eee",
+      "description": "test"
+    }
+  ],
+  "secrets": [
+    {
+      "name": "DB_TEST",
+      "required": false,
+      "description": "al db"
+    }
+  ],
+  "secretProvider": {
+    "kind": "local_encrypted",
+    "path": "secrets.local.enc"
+  }
+}

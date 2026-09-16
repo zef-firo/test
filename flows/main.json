@@ -1,0 +1,16 @@
+{
+  "name": "porting-fase2",
+  "user": "efesto",
+  "flowActive": "main",
+  "flows": [
+    {
+      "name": "main",
+      "label": "Main",
+      "flow": {
+        "nodes": [],
+        "connections": [],
+        "triggers": []
+      }
+    }
+  ]
+}

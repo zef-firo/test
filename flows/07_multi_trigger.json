@@ -1,0 +1,124 @@
+{
+  "name": "07_multi_trigger",
+  "user": "roberto",
+  "flowActive": "07_multi_trigger",
+  "flows": [
+    {
+      "name": "07_multi_trigger",
+      "label": "Piu' metodi di avvio: due rami, e due metodi sullo stesso ingresso",
+      "flow": {
+        "nodes": [
+          {
+            "id": "A",
+            "name": "Ramo manuale: carica",
+            "nodetype": "local",
+            "module": "load_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/data/clienti.csv"
+            },
+            "x": 480,
+            "y": 25
+          },
+          {
+            "id": "A2",
+            "name": "Ramo manuale: scrivi",
+            "nodetype": "local",
+            "module": "write_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/output/07_ramo_manuale.csv"
+            },
+            "x": 760,
+            "y": 55
+          },
+          {
+            "id": "B",
+            "name": "Ramo cron: carica",
+            "nodetype": "local",
+            "module": "load_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/data/elenco_parti.csv"
+            },
+            "x": 1045,
+            "y": 165
+          },
+          {
+            "id": "B2",
+            "name": "Ramo cron: scrivi",
+            "nodetype": "local",
+            "module": "write_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/output/07_ramo_cron2.csv",
+              "append": "false"
+            },
+            "x": 1310,
+            "y": 95
+          },
+          {
+            "id": "1",
+            "name": "log_event",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "TEEEST -> ${var.test} -- ${secret.DB_TEST}"
+            },
+            "x": 575,
+            "y": 280
+          }
+        ],
+        "connections": [
+          {
+            "id": "c1",
+            "sourceNode": "A",
+            "destNode": "A2",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c2",
+            "sourceNode": "A",
+            "destNode": "1",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c3",
+            "sourceNode": "B",
+            "destNode": "B2",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          }
+        ],
+        "triggers": [
+          {
+            "nodeId": "A",
+            "triggerType": "manual",
+            "name": "avvio_manual_Ramo manuale: carica"
+          },
+          {
+            "nodeId": "B",
+            "triggerType": "cron",
+            "name": "avvio_cron_Ramo cron: carica",
+            "params": {
+              "expression": "*/30 * * * * *",
+              "timezone": "Europe/Rome",
+              "enabled": "true"
+            }
+          },
+          {
+            "nodeId": "A",
+            "triggerType": "webserver",
+            "name": "avvio_webserver_Ramo manuale: carica_2",
+            "params": {
+              "path": "/multi",
+              "enabled": "true"
+            }
+          }
+        ],
+        "outputs": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "name": "02_fan_in",
+  "user": "roberto",
+  "flowActive": "02_fan_in",
+  "flows": [
+    {
+      "name": "02_fan_in",
+      "label": "Fan-in: due ingressi, una convergenza",
+      "flow": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Sorgente A",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "FAN-IN: sorgente A"
+            },
+            "x": 590,
+            "y": 40
+          },
+          {
+            "id": "2",
+            "name": "Sorgente B",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "FAN-IN: sorgente B"
+            },
+            "x": 445,
+            "y": 240
+          },
+          {
+            "id": "3",
+            "name": "Convergenza",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "FAN-IN: arrivati entrambi"
+            },
+            "x": 850,
+            "y": 40
+          },
+          {
+            "id": "4",
+            "name": "delay",
+            "nodetype": "local",
+            "module": "delay",
+            "params": {
+              "milliseconds": "6000",
+              "on_startup": "false"
+            },
+            "x": 735,
+            "y": 190
+          }
+        ],
+        "connections": [
+          {
+            "id": "c1",
+            "sourceNode": "1",
+            "destNode": "3",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c2",
+            "sourceNode": "2",
+            "destNode": "4",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c3",
+            "sourceNode": "4",
+            "destNode": "3",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          }
+        ],
+        "triggers": [
+          {
+            "nodeId": "1",
+            "triggerType": "manual",
+            "name": "avvio_manual_Sorgente A"
+          },
+          {
+            "nodeId": "2",
+            "triggerType": "manual",
+            "name": "avvio_manual_Sorgente A"
+          }
+        ],
+        "outputs": {}
+      }
+    }
+  ]
+}

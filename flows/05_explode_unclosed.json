@@ -1,0 +1,72 @@
+{
+  "name": "05_explode_unclosed",
+  "user": "roberto",
+  "flowActive": "05_explode_unclosed",
+  "flows": [
+    {
+      "name": "05_explode_unclosed",
+      "label": "Esplosione non chiusa: legittima, ma avvisata",
+      "flow": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Carica clienti",
+            "nodetype": "local",
+            "module": "load_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/data/clienti.csv"
+            },
+            "x": 310,
+            "y": 80
+          },
+          {
+            "id": "2",
+            "name": "Esplodi per riga",
+            "nodetype": "local",
+            "module": "explode_rows",
+            "params": {},
+            "x": 570,
+            "y": 80
+          },
+          {
+            "id": "3",
+            "name": "Scrivi per riga",
+            "nodetype": "local",
+            "module": "write_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/output/05_per_riga.csv"
+            },
+            "x": 830,
+            "y": 80
+          }
+        ],
+        "connections": [
+          {
+            "id": "c1",
+            "sourceNode": "1",
+            "destNode": "2",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c2",
+            "sourceNode": "2",
+            "destNode": "3",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          }
+        ],
+        "triggers": [
+          {
+            "nodeId": "1",
+            "triggerType": "manual",
+            "name": "avvio_manual_1"
+          }
+        ],
+        "outputs": {}
+      }
+    }
+  ]
+}

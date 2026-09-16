@@ -1,0 +1,66 @@
+{
+  "name": "08_orphan_node",
+  "user": "roberto",
+  "flowActive": "08_orphan_node",
+  "flows": [
+    {
+      "name": "08_orphan_node",
+      "label": "Nodo orfano: segnalato, non promosso ad avvio",
+      "flow": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Carica clienti",
+            "nodetype": "local",
+            "module": "load_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/data/clienti.csv"
+            },
+            "x": 310,
+            "y": 45
+          },
+          {
+            "id": "2",
+            "name": "Scrivi",
+            "nodetype": "local",
+            "module": "write_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/output/08_ok.csv"
+            },
+            "x": 570,
+            "y": 45
+          },
+          {
+            "id": "3",
+            "name": "Nodo scollegato",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "non mi avvia nessuno"
+            },
+            "x": 310,
+            "y": 155
+          }
+        ],
+        "connections": [
+          {
+            "id": "c1",
+            "sourceNode": "1",
+            "destNode": "2",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          }
+        ],
+        "triggers": [
+          {
+            "nodeId": "1",
+            "triggerType": "manual",
+            "name": "avvio_manual_1"
+          }
+        ],
+        "outputs": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "name": "04_load_csv_mid_flow",
+  "user": "roberto",
+  "flowActive": "04_load_csv_mid_flow",
+  "flows": [
+    {
+      "name": "04_load_csv_mid_flow",
+      "label": "load_csv a meta' flusso: N file elencati in una tabella",
+      "flow": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Elenco dei file",
+            "nodetype": "local",
+            "module": "load_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/data/elenco_parti.csv"
+            },
+            "x": 400,
+            "y": 130
+          },
+          {
+            "id": "2",
+            "name": "Un file per riga",
+            "nodetype": "local",
+            "module": "explode_rows",
+            "params": {},
+            "x": 660,
+            "y": 130
+          },
+          {
+            "id": "3",
+            "name": "Carica il file della riga",
+            "nodetype": "local",
+            "module": "load_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/data/parti/{{nome_file}}"
+            },
+            "x": 920,
+            "y": 130
+          },
+          {
+            "id": "4",
+            "name": "Ricomponi le parti",
+            "nodetype": "local",
+            "module": "collect_rows",
+            "params": {},
+            "x": 1180,
+            "y": 130
+          },
+          {
+            "id": "5",
+            "name": "Scrivi unione",
+            "nodetype": "local",
+            "module": "write_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/output/04_parti_unite.csv"
+            },
+            "x": 1440,
+            "y": 130
+          }
+        ],
+        "connections": [
+          {
+            "id": "c1",
+            "sourceNode": "1",
+            "destNode": "2",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c2",
+            "sourceNode": "2",
+            "destNode": "3",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c3",
+            "sourceNode": "3",
+            "destNode": "4",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c4",
+            "sourceNode": "4",
+            "destNode": "5",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          }
+        ],
+        "triggers": [
+          {
+            "nodeId": "1",
+            "triggerType": "manual",
+            "name": "avvio_manual_1"
+          }
+        ],
+        "outputs": {}
+      }
+    }
+  ]
+}

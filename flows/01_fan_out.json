@@ -1,0 +1,74 @@
+{
+  "name": "01_fan_out",
+  "user": "roberto",
+  "flowActive": "01_fan_out",
+  "flows": [
+    {
+      "name": "01_fan_out",
+      "label": "Fan-out: un ingresso, due rami",
+      "flow": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Sorgente",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "FAN-OUT: sorgente"
+            },
+            "x": 430,
+            "y": 125
+          },
+          {
+            "id": "2",
+            "name": "Ramo A",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "FAN-OUT: ramo A"
+            },
+            "x": 690,
+            "y": 125
+          },
+          {
+            "id": "3",
+            "name": "Ramo B",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "FAN-OUT: ramo B"
+            },
+            "x": 690,
+            "y": 235
+          }
+        ],
+        "connections": [
+          {
+            "id": "c1",
+            "sourceNode": "1",
+            "destNode": "2",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c2",
+            "sourceNode": "1",
+            "destNode": "3",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          }
+        ],
+        "triggers": [
+          {
+            "nodeId": "1",
+            "triggerType": "manual",
+            "name": "avvio_manual_Sorgente"
+          }
+        ],
+        "outputs": {}
+      }
+    }
+  ]
+}

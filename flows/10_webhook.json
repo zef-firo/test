@@ -1,0 +1,59 @@
+{
+  "name": "10_webhook",
+  "user": "roberto",
+  "flowActive": "10_webhook",
+  "flows": [
+    {
+      "name": "10_webhook",
+      "label": "Due endpoint HTTP, due rami",
+      "flow": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Ramo import",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "WEBHOOK: ramo import eseguito"
+            },
+            "x": 500,
+            "y": 115
+          },
+          {
+            "id": "2",
+            "name": "Ramo export",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "WEBHOOK: ramo export eseguito"
+            },
+            "x": 500,
+            "y": 225
+          }
+        ],
+        "connections": [],
+        "triggers": [
+          {
+            "nodeId": "1",
+            "triggerType": "webserver",
+            "name": "avvio_import",
+            "params": {
+              "path": "/import",
+              "enabled": "true"
+            }
+          },
+          {
+            "nodeId": "2",
+            "triggerType": "webserver",
+            "name": "avvio_export",
+            "params": {
+              "path": "/export",
+              "enabled": "true"
+            }
+          }
+        ],
+        "outputs": {}
+      }
+    }
+  ]
+}

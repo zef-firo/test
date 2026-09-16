@@ -1,0 +1,106 @@
+{
+  "name": "06_nested_explode",
+  "user": "roberto",
+  "flowActive": "06_nested_explode",
+  "flows": [
+    {
+      "name": "06_nested_explode",
+      "label": "Annidamento: deve essere rifiutato dal validatore",
+      "flow": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Carica clienti",
+            "nodetype": "local",
+            "module": "load_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/data/clienti.csv"
+            },
+            "x": 290,
+            "y": 35
+          },
+          {
+            "id": "2",
+            "name": "Esplosione esterna",
+            "nodetype": "local",
+            "module": "explode_rows",
+            "params": {},
+            "x": 550,
+            "y": 35
+          },
+          {
+            "id": "3",
+            "name": "Esplosione interna",
+            "nodetype": "local",
+            "module": "explode_rows",
+            "params": {},
+            "x": 810,
+            "y": 35
+          },
+          {
+            "id": "4",
+            "name": "Ricomponi",
+            "nodetype": "local",
+            "module": "collect_rows",
+            "params": {},
+            "x": 1070,
+            "y": 35
+          },
+          {
+            "id": "5",
+            "name": "Scrivi",
+            "nodetype": "local",
+            "module": "write_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/output/06_annidato.csv"
+            },
+            "x": 1330,
+            "y": 35
+          }
+        ],
+        "connections": [
+          {
+            "id": "c1",
+            "sourceNode": "1",
+            "destNode": "2",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c2",
+            "sourceNode": "2",
+            "destNode": "3",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c3",
+            "sourceNode": "3",
+            "destNode": "4",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c4",
+            "sourceNode": "4",
+            "destNode": "5",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          }
+        ],
+        "triggers": [
+          {
+            "nodeId": "1",
+            "triggerType": "manual",
+            "name": "avvio_manual_1"
+          }
+        ],
+        "outputs": {}
+      }
+    }
+  ]
+}

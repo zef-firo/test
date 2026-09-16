@@ -1,0 +1,108 @@
+{
+  "name": "03_explode_collect",
+  "user": "roberto",
+  "flowActive": "03_explode_collect",
+  "flows": [
+    {
+      "name": "03_explode_collect",
+      "label": "Cardinalita': esplodere per riga e ricomporre",
+      "flow": {
+        "nodes": [
+          {
+            "id": "1",
+            "name": "Carica clienti",
+            "nodetype": "local",
+            "module": "load_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/data/clienti.csv"
+            },
+            "x": 370,
+            "y": 150
+          },
+          {
+            "id": "2",
+            "name": "Esplodi per riga",
+            "nodetype": "local",
+            "module": "explode_rows",
+            "params": {},
+            "x": 630,
+            "y": 150
+          },
+          {
+            "id": "3",
+            "name": "Traccia la riga",
+            "nodetype": "local",
+            "module": "log_event",
+            "params": {
+              "message": "una riga"
+            },
+            "x": 890,
+            "y": 150
+          },
+          {
+            "id": "4",
+            "name": "Ricomponi",
+            "nodetype": "local",
+            "module": "collect_rows",
+            "params": {},
+            "x": 1150,
+            "y": 150
+          },
+          {
+            "id": "5",
+            "name": "Scrivi risultato",
+            "nodetype": "local",
+            "module": "write_csv",
+            "params": {
+              "file_path": "${BUNDLE_ROOT}/output/03_round_trip.csv"
+            },
+            "x": 1410,
+            "y": 150
+          }
+        ],
+        "connections": [
+          {
+            "id": "c1",
+            "sourceNode": "1",
+            "destNode": "2",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c2",
+            "sourceNode": "2",
+            "destNode": "3",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c3",
+            "sourceNode": "3",
+            "destNode": "4",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          },
+          {
+            "id": "c4",
+            "sourceNode": "4",
+            "destNode": "5",
+            "sourceGate": "output",
+            "destGate": "input",
+            "enabled": true
+          }
+        ],
+        "triggers": [
+          {
+            "nodeId": "1",
+            "triggerType": "manual",
+            "name": "avvio_manual_1"
+          }
+        ],
+        "outputs": {}
+      }
+    }
+  ]
+}
