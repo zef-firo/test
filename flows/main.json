@@ -7,9 +7,32 @@
       "name": "main",
       "label": "Main",
       "flow": {
-        "nodes": [],
+        "nodes": [
+          {
+            "id": "n1",
+            "name": "Genera record di prova",
+            "nodetype": "python",
+            "module": "dynamic_code",
+            "params": {
+              "code_file": "${BUNDLE_ROOT}/scripts/custom_probe.py",
+              "pass_through_schema": false,
+              "reload_on_change": true
+            },
+            "width": 150,
+            "height": 50,
+            "errOutput": true,
+            "x": 80,
+            "y": 80
+          }
+        ],
         "connections": [],
-        "triggers": []
+        "triggers": [
+          {
+            "nodeId": "n1",
+            "triggerType": "manual",
+            "name": "test_custom_code"
+          }
+        ]
       }
     }
   ]
